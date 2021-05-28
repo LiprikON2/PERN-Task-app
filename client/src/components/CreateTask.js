@@ -34,8 +34,8 @@ const CreateTask = () => {
 
     return (
         <>
-            <h1 className='text-center mt-5'>Create a task</h1>
-            <form className='mt-5' onSubmit={onSubmitForm}>
+            <h1 className='text-center mt-5 mb-5'>Create a task</h1>
+            <form onSubmit={onSubmitForm}>
 
                 <label className='form-label'>Project</label>
                 <input 
