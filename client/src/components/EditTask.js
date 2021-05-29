@@ -33,22 +33,8 @@ const EditTask = ({
                     onChange={(e) => updateTask(task.task_id, "prj_id", e.target.value)}
                 />
             </td>
-            <td className={`col-1 ${centrClass} flex-grow-1`}>
-                <input
-                    type="text"
-                    className="form-control"
-                    value={task.prj_name}
-                    onChange={(e) => updateTask(task.task_id, "prj_name", e.target.value)}
-                />
-            </td>
-            <td className={`col-1 ${centrClass} flex-shrink-1`}>
-                <input
-                    type="number"
-                    className="form-control"
-                    value={task.task_id}
-                    onChange={(e) => updateTask(task.task_id, "task_id", e.target.value)}
-                />
-            </td>
+            <td className={`col-1 ${centrClass} flex-grow-1`}>{task.prj_name}</td>
+            <td className={`col-1 ${centrClass} flex-shrink-1`}>{task.task_id}</td>
             <td className={`col-1 ${centrClass} flex-grow-2`}>
                 <input
                     type="text"
@@ -65,14 +51,7 @@ const EditTask = ({
                     onChange={(e) => updateTask(task.task_id, "emp_id", e.target.value)}
                 />
             </td>
-            <td className={`col-1 ${centrClass}`}>
-                <input
-                    type="text"
-                    className="form-control"
-                    value={task.emp_name}
-                    onChange={(e) => updateTask(task.task_id, "emp_name", e.target.value)}
-                />
-            </td>
+            <td className={`col-1 ${centrClass}`}>{task.emp_name}</td>
             <td className={`col-1 ${centrClass}`}>
                 <input
                     type="date"

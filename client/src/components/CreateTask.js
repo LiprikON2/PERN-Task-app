@@ -35,8 +35,8 @@ const CreateTask = () => {
     return (
         <>
             <h1 className="text-center mt-5 mb-5">Create a task</h1>
-            <form onSubmit={onSubmitForm}>
-                <label className="form-label">Project</label>
+            <form className="container-fluid" onSubmit={onSubmitForm}>
+                <label className="form-label">Project ID</label>
                 <input
                     type="number"
                     className="form-control mb-3"
@@ -65,7 +65,7 @@ const CreateTask = () => {
                     value={due_check_date}
                     onChange={(e) => setDueCheckDate(e.target.value)}
                 />
-                <label className="form-label">Employee</label>
+                <label className="form-label">Employee ID</label>
                 <input
                     type="number"
                     className="form-control mb-3"

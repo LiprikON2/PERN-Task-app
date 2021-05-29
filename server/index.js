@@ -44,7 +44,7 @@ app.post("/create_task", async (request, response) => {
         console.log(err.message);
 
         response.json({
-            message: err.message,
+            error: err.message,
         });
     }
 });
@@ -58,7 +58,7 @@ app.get("/tasks", async (request, response) => {
         console.log(err.message);
 
         response.json({
-            message: err.message,
+            error: err.message,
         });
     }
 });
@@ -73,7 +73,7 @@ app.get("/tasks/:task_id", async (request, response) => {
         console.log(err.message);
 
         response.json({
-            message: err.message,
+            error: err.message,
         });
     }
 });
@@ -109,10 +109,10 @@ app.put("/tasks/:task_id", async (request, response) => {
         `);
         response.json(updateTask.rows[0]);
     } catch (err) {
-        console.log(err.message);
-
+        console.log("Update POSTGRES error:", err.message);
+        // response.send(err.message);
         response.json({
-            message: err.message,
+            error: err.message,
         });
     }
 });
@@ -127,7 +127,7 @@ app.delete("/tasks/:task_id", async (request, response) => {
         console.log(err.message);
 
         response.json({
-            message: err.message,
+            error: err.message,
         });
     }
 });

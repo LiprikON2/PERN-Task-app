@@ -7,7 +7,15 @@ import TaskTableHead from "./TaskTableHead";
 const ListTask = () => {
     const [tasks, setTasks] = useState([]);
     const [editTaskId, setEditTaskId] = useState(0);
-    // const [prevTasks, setPrevTasks] = useState([]);
+
+    function usePrevious(value) {
+        const ref = useRef();
+        useEffect(() => {
+            ref.current = value;
+        });
+        return ref.current;
+    }
+    const prevEditTaskId = usePrevious(editTaskId);
 
     const getTasks = async () => {
         try {
@@ -41,6 +49,7 @@ const ListTask = () => {
             if (task_id !== editTaskId) {
                 setEditTaskId(task_id);
             } else {
+                getTasks();
                 setEditTaskId(0);
             }
         } catch (err) {
@@ -58,14 +67,17 @@ const ListTask = () => {
     const onSubmitForm = async (e) => {
         e.preventDefault();
         try {
-            const task = getTaskByTaskId(editTaskId);
+            const task = getTaskByTaskId(prevEditTaskId);
             delete task.task_id;
+            delete task.prj_name;
+            delete task.emp_name;
 
-            const response = await fetch(`http://localhost:81/tasks/${editTaskId}`, {
+            const response = await fetch(`http://localhost:81/tasks/${prevEditTaskId}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(task),
             });
+            getTasks();
         } catch (err) {
             console.log(err.message);
         }
