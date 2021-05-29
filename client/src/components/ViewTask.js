@@ -39,12 +39,14 @@ const ViewTask = ({
             <td className={`col-1 ${centrClass}`}>{task.status}</td>
             <td className={`col-2 ${centrClass}`}>
                 <button
+                    type="button"
                     className="btn btn-primary m-1"
                     onClick={() => handleEditTask(task.task_id)}
                 >
                     Edit
                 </button>
                 <button
+                    type="button"
                     onClick={() => handleDeleteTask(task.task_id)}
                     className="btn btn-danger m-1"
                 >

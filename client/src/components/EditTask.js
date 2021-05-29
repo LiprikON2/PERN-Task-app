@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 const EditTask = ({
     handleEditTask,
@@ -11,13 +11,13 @@ const EditTask = ({
     centrClass,
 }) => {
     const updateTask = (task_id, key, value) => {
-        const updatedTasksList = tasks.map((task) => {
+        const updatedTasks = tasks.map((task) => {
             if (task.task_id === task_id) {
                 task[key] = value;
             }
             return task;
         });
-        setTasks(updatedTasksList);
+        setTasks(updatedTasks);
     };
 
     return (
@@ -112,6 +112,7 @@ const EditTask = ({
             </td>
             <td className={`col-2 ${centrClass}`}>
                 <button
+                    type="reset"
                     className="btn btn-primary m-1"
                     onClick={() => handleEditTask(task.task_id)}
                 >

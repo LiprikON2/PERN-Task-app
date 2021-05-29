@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect, Fragment, useRef } from "react";
 
 import EditTask from "./EditTask";
 import ViewTask from "./ViewTask";
@@ -7,6 +7,7 @@ import TaskTableHead from "./TaskTableHead";
 const ListTask = () => {
     const [tasks, setTasks] = useState([]);
     const [editTaskId, setEditTaskId] = useState(0);
+    // const [prevTasks, setPrevTasks] = useState([]);
 
     const getTasks = async () => {
         try {
@@ -35,7 +36,6 @@ const ListTask = () => {
 
         return [year, month, day].join("-");
     }
-
     const handleEditTask = async (task_id) => {
         try {
             if (task_id !== editTaskId) {
@@ -48,11 +48,7 @@ const ListTask = () => {
         }
     };
     const getTaskByTaskId = (task_id) => {
-        for (const property in tasks) {
-            console.log(`${property}: ${tasks[property]}`);
-        }
-        for (let task in tasks) {
-            // console.log(typeof task.task_id, typeof task_id);
+        for (const task of tasks) {
             if (task.task_id === task_id) {
                 return task;
             }
@@ -63,21 +59,13 @@ const ListTask = () => {
         e.preventDefault();
         try {
             const task = getTaskByTaskId(editTaskId);
-            console.log(task);
-            const body = {
-                // prj_id,
-                // start_date,
-                // due_date,
-                // due_check_date,
-                // status,
-                // emp_id,
-                // description,
-            };
-            // const response = await fetch(`http://localhost:81/tasks/${editTaskId}`, {
-            //     method: "PUT",
-            //     headers: { "Content-Type": "application/json" },
-            //     body: JSON.stringify(body),
-            // });
+            delete task.task_id;
+
+            const response = await fetch(`http://localhost:81/tasks/${editTaskId}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(task),
+            });
         } catch (err) {
             console.log(err.message);
         }
