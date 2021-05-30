@@ -2,9 +2,14 @@
 
 > Postgres CRUD interface based on PERN stack
 
-![](https://i.imgur.com/od4yTwZ.png)
-![](https://i.imgur.com/6VoTWLH.png)
-![](https://i.imgur.com/Fzp1uf2.png)
+![](https://i.imgur.com/06R61TV.png)
+![](https://i.imgur.com/8kEdOoC.png)
+![](https://i.imgur.com/4GgPIhM.png)
+![](https://i.imgur.com/4zTmyb4.png)
+![](https://i.imgur.com/kTw07bV.png)
+![](https://i.imgur.com/9VAqEdA.png)
+![](https://i.imgur.com/DnVtEYJ.png)
+![](https://i.imgur.com/b1cE2Do.png)
 
 ### Packages
 
