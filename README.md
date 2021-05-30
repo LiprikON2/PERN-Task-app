@@ -1,4 +1,4 @@
-# PERN task app
+# PERN Task app
 
 > Postgres CRUD interface based on PERN stack
 
@@ -21,7 +21,7 @@
 
 #### Running server
 
-> on localhost:81
+> at localhost:81
 
 ```bash
 nodemon ./server/index.js
