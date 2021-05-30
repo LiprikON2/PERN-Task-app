@@ -8,6 +8,7 @@ function App() {
         <>
             <div className="container">
                 <CreateTask></CreateTask>
+                <hr className="mt-5" />
                 <ListTask></ListTask>
             </div>
         </>

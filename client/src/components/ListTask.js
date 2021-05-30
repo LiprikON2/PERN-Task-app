@@ -3,10 +3,12 @@ import React, { useState, useEffect, Fragment, useRef } from "react";
 import EditTask from "./EditTask";
 import ViewTask from "./ViewTask";
 import TaskTableHead from "./TaskTableHead";
+import Alert from "./Alert";
 
 const ListTask = () => {
     const [tasks, setTasks] = useState([]);
     const [editTaskId, setEditTaskId] = useState(0);
+    const [serverResponse, setServerResponse] = useState({});
 
     function usePrevious(value) {
         const ref = useRef();
@@ -77,6 +79,16 @@ const ListTask = () => {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(task),
             });
+
+            const statusCode = await response.status;
+            const jsonData = await response.json();
+
+            setServerResponse({
+                status: statusCode,
+                message: jsonData["message"],
+            });
+            console.log(statusCode, response["message"]);
+
             getTasks();
         } catch (err) {
             console.log(err.message);
@@ -88,6 +100,8 @@ const ListTask = () => {
     return (
         <>
             <h1 className="text-center mt-5 mb-5">List of all tasks</h1>
+            <Alert serverResponse={serverResponse} setServerResponse={setServerResponse} />
+
             <form onSubmit={onSubmitForm}>
                 <table className="table table-striped table-hover text-center">
                     <TaskTableHead centrClass={centrClass} />
@@ -103,6 +117,7 @@ const ListTask = () => {
                                     task={task}
                                     index={index}
                                     centrClass={centrClass}
+                                    setServerResponse={setServerResponse}
                                     key={task.task_id + "a"}
                                 />
                                 {/* The row is toggled beteween view or edit by clicking Edit button  */}

@@ -2,7 +2,6 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const pool = require("./db");
-// const { response, request } = require("express");
 
 // middleware
 app.use(cors());
@@ -39,12 +38,14 @@ app.post("/create_task", async (request, response) => {
             )
             RETURNING *
         `);
-        response.json(createTask.rows[0]);
+        response.status(200).send({
+            message: `Successfully created new task!`,
+        });
     } catch (err) {
         console.log(err.message);
 
-        response.json({
-            error: err.message,
+        response.status(400).send({
+            message: "ERROR: " + err.message,
         });
     }
 });
@@ -53,12 +54,12 @@ app.post("/create_task", async (request, response) => {
 app.get("/tasks", async (request, response) => {
     try {
         const listTask = await pool.query(`SELECT * FROM todo_v1.task_project_emploee`);
-        response.json(listTask.rows);
+        response.status(200).send(listTask.rows);
     } catch (err) {
         console.log(err.message);
 
-        response.json({
-            error: err.message,
+        response.status(400).send({
+            message: "ERROR: " + err.message,
         });
     }
 });
@@ -68,12 +69,12 @@ app.get("/tasks/:task_id", async (request, response) => {
     try {
         const { task_id } = request.params;
         const task = await pool.query(`SELECT * FROM todo_v1.task WHERE task_id = ${task_id}`);
-        response.json(task.rows);
+        response.status(200).send(task.rows);
     } catch (err) {
         console.log(err.message);
 
-        response.json({
-            error: err.message,
+        response.status(400).send({
+            message: "ERROR: " + err.message,
         });
     }
 });
@@ -107,12 +108,14 @@ app.put("/tasks/:task_id", async (request, response) => {
             WHERE task_id=${task_id}
             RETURNING *
         `);
-        response.json(updateTask.rows[0]);
+        response.status(200).send({
+            message: `Successfully updated task ${task_id}!`,
+        });
     } catch (err) {
-        console.log("Update POSTGRES error:", err.message);
-        // response.send(err.message);
-        response.json({
-            error: err.message,
+        console.log(err.message);
+
+        response.status(400).send({
+            message: "ERROR: " + err.message,
         });
     }
 });
@@ -122,12 +125,14 @@ app.delete("/tasks/:task_id", async (request, response) => {
     try {
         const { task_id } = request.params;
         const deleteTask = await pool.query(`DELETE FROM todo_v1.task WHERE task_id=${task_id}`);
-        response.json(deleteTask.rows[0]);
+        response.status(200).send({
+            message: `Successfully deleted task ${task_id}!`,
+        });
     } catch (err) {
         console.log(err.message);
 
-        response.json({
-            error: err.message,
+        response.status(400).send({
+            message: "ERROR: " + err.message,
         });
     }
 });

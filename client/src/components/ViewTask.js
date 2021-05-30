@@ -8,6 +8,7 @@ const ViewTask = ({
     index,
     formatDate,
     handleEditTask,
+    setServerResponse,
     centrClass,
 }) => {
     const handleDeleteTask = async (task_id) => {
@@ -15,6 +16,15 @@ const ViewTask = ({
             const deleteTask = await fetch(`http://localhost:81/tasks/${task_id}`, {
                 method: "DELETE",
             });
+
+            const statusCode = await deleteTask.status;
+            const jsonData = await deleteTask.json();
+
+            setServerResponse({
+                status: statusCode,
+                message: jsonData["message"],
+            });
+
             tasks.filter((task) => task.task_id !== task_id);
             // Updates list of table items every time item is deleted
             setTasks(tasks.filter((task) => task.task_id !== task_id));

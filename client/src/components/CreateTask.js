@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Alert from "./Alert";
 
 const CreateTask = () => {
     const [prj_id, setPrjId] = useState("");
@@ -8,6 +9,8 @@ const CreateTask = () => {
     const [emp_id, setEmpId] = useState("");
     const [description, setDescription] = useState("");
     const [status, setStatus] = useState("In work");
+
+    const [serverResponse, setServerResponse] = useState({});
 
     const onSubmitForm = async (e) => {
         e.preventDefault();
@@ -26,7 +29,15 @@ const CreateTask = () => {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(body),
             });
-            window.location = "/";
+
+            const statusCode = await response.status;
+            const jsonData = await response.json();
+
+            setServerResponse({
+                status: statusCode,
+                message: jsonData["message"],
+            });
+            // window.location = "/";
         } catch (err) {
             console.log(err.message);
         }
@@ -92,8 +103,9 @@ const CreateTask = () => {
                     <option value="Canceled">Canceled</option>
                     <option value="Processing">Processing</option>
                 </select>
+                <Alert serverResponse={serverResponse} setServerResponse={setServerResponse} />
 
-                <button className="btn btn-success mt-5">Add</button>
+                <button className="btn btn-success mt-5 w-100">Add</button>
             </form>
         </>
     );
